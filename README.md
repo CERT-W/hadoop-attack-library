@@ -3,7 +3,7 @@ Hadoop Attack Library
 
 Description
 -----------
-A collection of pentest tools targeting Hadoop environments
+A collection of pentest tools and resources targeting Hadoop environments
 
 
 Copyright and license
