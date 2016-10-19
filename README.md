@@ -8,7 +8,7 @@ A collection of pentest tools and resources targeting Hadoop environments
 Outline
 -------
 This repository is composed of two kind of information and organised accordingly:
-* **Tools, Techniques and Procedures** to attack an Hadoop environments, in the `Tools Techniques Procedures` folder
+* **Tools, Techniques and Procedures** to attack an Hadoop environments, in the `Tools Techniques and Procedures` folder
 * **Key vulnerabilities in third-party components** often used Hadoop environments, in the `Third-party modules vulnerabilities` folder
 
 Copyright and license
