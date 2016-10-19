@@ -7,10 +7,10 @@ Apache Parquet is a storage format widely used in Big Data environments.
 As an attacker, you might be facing this format after getting access to the datalake.  
 Two options to be able to read this format:
 * Compile the `parquet-tools` utility to be used in the **`hadoop`** mode: a working Hadoop environment is needed to run the utility as **all Hadoop jars are required in the classpath**
-* Compile the `parquet-tools` utility to in the **`local`** standalone: **no external Hadoop jar will be required** as they are packaged into the build  
+* Compile the `parquet-tools` utility to in the **`local`** standalone mode: **no external Hadoop jar will be required** as they are packaged into the build  
 For each of these options, guidelines are provided in [the project](https://github.com/apache/parquet-mr/tree/master/parquet-tools)
 
-**The quicker option is to use our pre-compiled version of `parquet-tools`, currently [`parquet-tools-1.8.1.jar`](parquet-tools-1.8.1.jar)**
+**The quicker option is to use our pre-compiled version of `parquet-tools` in `local` mode, currently [`parquet-tools-1.8.1.jar`](parquet-tools-1.8.1.jar)**
 
 Usage
 =====
