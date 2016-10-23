@@ -1,4 +1,4 @@
-Remote executing commands
+Executing remote commands
 =========================
 
 Description

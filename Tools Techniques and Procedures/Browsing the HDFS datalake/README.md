@@ -7,12 +7,12 @@ WebHDFS offers REST API for users to access data on the HDFS filesystem using th
 The API allows to perform all [possible actions](http://hadoop.apache.org/docs/r2.7.2/hadoop-project-dist/hadoop-hdfs/WebHDFS.html) on the HDFS filesystem (view, create, modify, etc.).  
 By default, if Kerberos authentication is not enabled, no credential is needed to request these services: only identification is needed using the `user.name` parameter.  
 WebHDFS API are exposed on the following services:
- * HDFS DataNode WebUI on port 50075
- * HttpFS module on port 14000  
+ * HDFS DataNode WebUI on **port 50075**
+ * HttpFS module on **port 14000**  
 
-Another method for listing the content is to call the [`/listPaths/` URI on a NameNode](https://blog.cloudera.com/blog/2009/08/hadoop-default-ports-quick-reference/).  
+Another possible method to list the content is to call the [`/listPaths/` URI on a NameNode](https://blog.cloudera.com/blog/2009/08/hadoop-default-ports-quick-reference/) which returns an XML file.  
 
-`HDFSBrowser` has been developped to allow attackers to easily browse the HDFS filesystem using WebHDFS and HttpFS services. `HDFSBrowser` is able to request the different known methods. 
+`HDFSBrowser` has been developed to allow attackers to easily browse the HDFS filesystem using WebHDFS and HttpFS services. `HDFSBrowser` is able to handle the different known methods. 
 
 Usage
 -----
