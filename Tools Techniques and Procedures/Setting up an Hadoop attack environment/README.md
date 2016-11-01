@@ -5,12 +5,12 @@ Description
 -----------
 This tutorial explains how to set up a working environment in order to perform attacks from the **Hadoop client CLI** such as:
 * [Browsing the HDFS datalake](../Browsing the HDFS datalake)
-* [Remote executing commands](../Executing remote commands)
+* [Remote executing commands](../Executing remote commands)  
 This tutorial is valid for a Linux environment and has been tested on Kali.
 
 1. Download the latest [Hadoop binary release](http://hadoop.apache.org/releases.html)
     ```
-    $ wget http://www.apache.org/dyn/closer.cgi/hadoop/common/hadoop-2.7.3/hadoop-2.7.3.tar.gz
+    $ cd /opt && wget http://www.apache.org/dyn/closer.cgi/hadoop/common/hadoop-2.7.3/hadoop-2.7.3.tar.gz
     ```  
 
 2. Decompress the archive
