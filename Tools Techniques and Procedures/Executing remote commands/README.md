@@ -69,8 +69,8 @@ Then **start your meterpreter listener**, wait **few dozen of seconds** (yes it 
   
 Limitations
 -----------
-Due to the **distributed nature of a MapReduce job**, it is not possible to specify on which node you want to execute your payload. There is **no mechanism** ensuring that the payload you will launch on two successive jobs will execute on the **same cluster member**.  
-As a consequence you can't know beforehand the server IP where your payload will be executed: so just use a `reverse shell` payload and gently wait for your shell to arrive.
+Due to the **distributed nature of a MapReduce job**, it is not possible to specify on which node you want to execute your payload. There is **no mechanism** ensuring that the payload you will launch on **two successive jobs** will execute on the **same cluster member**.  
+As a consequence **you can't know beforehand the server IP where your payload will be executed**: so just use a `reverse shell` payload and gently wait for your shell to arrive.
   
   
 References
