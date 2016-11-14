@@ -17,6 +17,7 @@ dfs.webhdfs.enabled: true|false     Enable WebHDFS (REST API) in Namenodes and D
 ```
 
 **The API allows to perform all [possible actions](http://hadoop.apache.org/docs/r2.7.2/hadoop-project-dist/hadoop-hdfs/WebHDFS.html) on the HDFS filesystem (view, create, modify, etc.).**  
+
 By default, if Kerberos authentication is not enabled, no credential is needed to request these services: **only user identification is needed using the `user.name` parameter**.  
 WebHDFS API are exposed on the following services:
 * DataNode HDFS DataNode WebUI on **port 50075**
