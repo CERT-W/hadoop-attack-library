@@ -11,7 +11,7 @@ This tutorial is valid for a Linux environment and has been tested on Kali.
 
 1. Download the latest [Hadoop binary release](http://hadoop.apache.org/releases.html)
     ```
-    $ cd /opt && wget http://www.apache.org/dyn/closer.cgi/hadoop/common/hadoop-2.7.3/hadoop-2.7.3.tar.gz
+    $ cd /opt && wget http://apache.mirrors.ovh.net/ftp.apache.org/dist/hadoop/common/hadoop-2.7.3/hadoop-2.7.3.tar.gz
     ```  
 
 2. Decompress the archive
@@ -19,7 +19,7 @@ This tutorial is valid for a Linux environment and has been tested on Kali.
     $ tar xvf hadoop-2.7.3.tar.gz
     ```
 
-3. Set, if not already done, the `JAVA_HOME` environment variable
+3. Set, if not already done, the `JAVA_HOME` environment variable (use `$ update-alternatives --config java` to find your Java path)
     ```
     $ export JAVA_HOME=/usr/lib/jvm/java-7-openjdk-i386
     ```
