@@ -28,7 +28,7 @@ def create_hdfs_site(datanode = None):
             "dfs.client.use.datanode.hostname":  "true"
             }
     create_file_with_attributes(filename, attributes)
-    print "[+] %s correctly created" % filename
+    print "[+] %s successfully created" % filename
 
 # Build core-site.xml file
 def create_core_site(namenode = None):
@@ -38,7 +38,7 @@ def create_core_site(namenode = None):
     else:
         attributes = { "fs.defaultFS": "random.hadoop" }
     create_file_with_attributes(filename, attributes)
-    print "[+] %s correctly created" % filename
+    print "[+] %s successfully created" % filename
 
 # Build yarn-site.xml file
 def create_yarn_site(conf):
@@ -54,7 +54,7 @@ def create_yarn_site(conf):
     attributes["yarn.application.classpath"] = parse_attribute(tmp_property[0].text, configuration)
 
     create_file_with_attributes(filename, attributes)
-    print "[+] %s correctly created" % filename
+    print "[+] %s successfully created" % filename
 
 # Build mapred-site.xml file
 def create_mapred_site(conf):
@@ -67,7 +67,7 @@ def create_mapred_site(conf):
     attributes["mapreduce.jobhistory.address"] = tmp_property[0].text
 
     create_file_with_attributes(filename, attributes)
-    print "[+] %s correctly created" % filename
+    print "[+] %s successfully created" % filename
 
 # Parsing hadoop configuration
 def parse_attribute(attr, configuration):
@@ -112,6 +112,7 @@ def main():
     parser.add_argument("--nn", type = str, default = None, action = "store", help = "Cluster namenode")
     parser.add_argument("--dn", type = str, default = None, action = "store", help = "Cluster datanodes addresses")
     parser.add_argument("-o", "--output-dir", type = str, default = "hadoopsnooper/", action = "store", help = "Output directory")
+    parser.add_argument("--batch", default = False, action = "store_true", help = "Never ask for user input, use the default behaviour")
 
     if len(sys.argv) == 1:
         print "[!] Missing host ... Exiting !"
@@ -123,10 +124,37 @@ def main():
         CONF_DIR = args.output_dir + "/"
         namenode = args.nn
         datanode = args.dn
+        batch_mode = args.batch
 
     if not os.path.isdir(CONF_DIR):
-        "[+] Creating configuration directory"
-        os.makedirs(CONF_DIR)
+        message = "Specified destination path does not exist, do you want to create it ? [y/N]"
+        if not batch_mode: 
+            doCreate = raw_input(message).upper()
+        else:
+            doCreate = 'N'
+            print(message)
+
+        if doCreate == 'Y':
+            print "[+] Creating configuration directory"
+            os.makedirs(CONF_DIR)
+        else:
+            print "[!] Directory not created ... Exiting"
+            sys.exit(1)
+
+    files =  map(lambda x : CONF_DIR + x, [ "core-site.xml", "hdfs-site.xml", "mapred-site.xml", "yarn-site.xml" ])
+    if any(map(os.path.isfile, files)):
+        message = "Destination directory already contains configuration files, do you want to continue (all existing files will be deleted) ? [Y/n]"
+        if not batch_mode: 
+            doDelete = raw_input(message).upper()
+        else:
+            doDelete = "Y"
+            print(message)
+
+        if doDelete == 'Y': 
+            for f in files: 
+                if os.path.isfile(f): os.remove(f)
+        else:
+            print "[!] Files not deleted ... Exiting"
 
     conf = get_hadoop_conf(host)
     if conf:
