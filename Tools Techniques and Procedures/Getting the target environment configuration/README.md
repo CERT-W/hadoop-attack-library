@@ -3,7 +3,7 @@ Getting the target environment configuration
 
 Description
 -----------
-Several **cluster parameters** have to be configured in different files on the client-side to be able to interact with an Hadoop cluster.
+Several **cluster parameters** have to be configured in different files on the client-side to be able to interact with an Hadoop cluster.  
 These parameters can be retrieved from the **multiple Web interfaces on Hadoop components** and have to be placed accordingly in the **following files**:
 
 #### `core-site.xml`  
@@ -40,10 +40,17 @@ Parameter name | Parameter value | Parameter example
 `mapreduce.application.framework.path` | The path of a custom job framework, notably used in HortonWorks clusters | `/hdp/apps/${hdp.version}/mapreduce/mapreduce.tar.gz#mr-framework`
   
   
-Where to place these files ?
-----------------------------
-By default they have to be placed in the following local folder on the attacker environment `<hadoop_installation>/etc/hadoop`  
-If you followed the [`Setting up an Hadoop attack environment` tutorial](../Setting up an Hadoop attack environment), it then should be placed in `/opt/hadoop-2.7.3/etc/hadoop`
+Where to place these configuration files ?
+------------------------------------------
+By default they have to be placed in the following local folder on the attacker environment 
+```
+<hadoop_installation>/etc/hadoop
+```
+  
+If you followed the [`Setting up an Hadoop attack environment` tutorial](../Setting up an Hadoop attack environment), it then should be placed in 
+```
+/opt/hadoop-2.7.3/etc/hadoop
+```
   
   
 Where to get the parameter values ?
@@ -51,17 +58,17 @@ Where to get the parameter values ?
 The cluster configuration can be retrieved on **any Web UI at the `/conf` URI on all native Hadoop components including**:
 * **HDFS NameNode WebUI**, on port HTTP/50070 or HTTPS/50470  
 * **HDFS DataNode WebUI**, on port HTTP/50075 or HTTPS/50475  
-* **MapReduce v2 JobHistory Server WebUI**, on port HTTP/19888 or HTTPS/19890  
+* **Secondary NameNode WebUI**, on port HTTP/50090  
 * **YARN ResourceManager WebUI**, on port HTTP/8088 or HTTPS/8090  
 * **YARN NodeManager WebUI**, on port HTTP/8042 or HTTPS/8044  
-* **Secondary NameNode WebUI**, on port HTTP/50090  
-* **MapReduce v1 JobTracker**, on port HTTP/50030  
-* **MapReduce v1 TaskTracker**, on port HTTP/50060  
+* **MapReduce v2 JobHistory Server WebUI**, on port HTTP/19888 or HTTPS/19890 
+* **MapReduce v1 JobTracker WebUI**, on port HTTP/50030  
+* **MapReduce v1 TaskTracker WebUI**, on port HTTP/50060  
 
 
 HadoopSnooper
 -------------
-`HadoopSnooper` has been developped to allow attackers to easily retrieve a suitable minimum client-side configuration using configuration files exposed on Hadoop components' Web interfaces.  
+`HadoopSnooper` has been developped to allow attackers to **easily retrieve a suitable minimum client-side configuration** using configuration files exposed on Hadoop components' Web interfaces.  
 It simply grabs a remote cluster configuration, parse it and generate the appropriate configuration files to be used in the attacker environment.
 
 ### Usage
