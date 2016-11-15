@@ -55,7 +55,7 @@ If you followed the [`Setting up an Hadoop attack environment` tutorial](../Sett
   
 Where to get the parameter values ?
 -----------------------------------
-The cluster configuration can be retrieved on **any Web UI at the `/conf` URI on all native Hadoop components including**:
+The cluster configuration can be retrieved on **any WebUI at the `/conf` URI on all native Hadoop components including**:
 * **HDFS NameNode WebUI**, on port HTTP/50070 or HTTPS/50470  
 * **HDFS DataNode WebUI**, on port HTTP/50075 or HTTPS/50475  
 * **Secondary NameNode WebUI**, on port HTTP/50090  
