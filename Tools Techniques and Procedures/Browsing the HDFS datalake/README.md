@@ -25,12 +25,11 @@ WebHDFS API are exposed on the following services:
 
 Another possible method to list the content is to call the [`/listPaths/` URI on a NameNode WebUI on port 50070](https://blog.cloudera.com/blog/2009/08/hadoop-default-ports-quick-reference/) which returns an XML file.  
 
+HDFSBrowser
+-----------
 `HDFSBrowser` has been developed to allow attackers to easily browse the HDFS filesystem using WebHDFS and HttpFS services. `HDFSBrowser` is able to handle the different known methods. 
 
-Usage
------
-The application consist of the following commands:  
-
+### Usage
 ```
 $ python hdfsbrowser.py  -h
 usage: hdfsbrowser.py [-h] [--port PORT] [-o OUTPUT_FILE] [--ssl]
@@ -73,6 +72,10 @@ optional arguments:
   --proxy PROXY         Use proxy on given port
   --header HEADER       Pass custom header to server
 ```
+
+### Dependencies
+* Python 2
+* `requests` and `lxml` modules: `$ pip install requests lxml`
   
 ----------
 Hadoop CLI

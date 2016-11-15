@@ -3,29 +3,68 @@ Getting the target environment configuration
 
 Description
 -----------
-This tutorial explains how to set up a correct environnement in order to perform an Hadoop pentest
+Several **cluster parameters** have to be configured in different files on the client-side to be able to interact with an Hadoop cluster.
+These parameters can be retrieved from the **multiple Web interfaces on Hadoop components** and have to be placed accordingly in the **following files**:
+
+#### `core-site.xml`  
+
+Parameter name | Parameter value | Parameter example
+-------------- | --------------- | -----------------
+`fs.defaultFS` | The IP of the NameNode, used for filesystem metadata interaction| `hdfs://1.2.3.4:8020`
+  
+  
+#### `hdfs-site.xml`
+
+Parameter name | Parameter value | Parameter example
+-------------- | --------------- | -----------------
+`dfs.datanode.address` | The IP of the DataNode, used for file transfer| `hdfs://1.2.3.4:8020`
+`dfs.client.use.datanode.hostname` | `true or false` depending of the cluster architecture (multihomed vs monohomed), it is used to specify if HDFS clients should use hostnames instead of IPs to connect to DataNodes. In most of the case, it should be set to `true` | `true`
+  
+  
+#### `yarn-site.xml`  
+
+Parameter name | Parameter value | Parameter example
+-------------- | --------------- | -----------------
+`yarn.resourcemanager.hostname` | The hostname of the ResourceManager, used to execute jobs | `foobar.example.com`
+`yarn.resourcemanager.address` | The IP and port of the Resource Manager | `${yarn.resourcemanager.hostname}:8050`
+`yarn.application.classpath` | The classpath of the Resource Manager, to be included when executing jobs | `$HADOOP_CONF_DIR,/usr/hdp/current/hadoop-client/*,/usr/hdp/current/hadoop-client/lib/*,/usr/hdp/current/hadoop-hdfs-client/*,/usr/hdp/current/hadoop-hdfs-client/lib/*,/usr/hdp/current/hadoop-yarn-client/*,/usr/hdp/current/hadoop-yarn-client/lib/*`
+  
+  
+#### `mapred-site.xml`  
+
+Parameter name | Parameter value | Parameter example
+-------------- | --------------- | -----------------
+`mapreduce.framework.name` | The runtime framework for executing MapReduce jobs. Can be one of `local`, `classic` or `yarn` but it should be `yarn` | `yarn`
+`mapreduce.jobhistory.address` | The IP and port of the JobHistory server, used to track jobs | `foobar.example.com:10020`
+`mapreduce.application.classpath` | The classpath of MapReduce, to be included when executing jobs | `$PWD/mr-framework/hadoop/share/hadoop/mapreduce/*:$PWD/mr-framework/hadoop/share/hadoop/mapreduce/lib/*:$PWD/mr-framework/hadoop/share/hadoop/common/*:$PWD/mr-framework/hadoop/share/hadoop/common/lib/*:$PWD/mr-framework/hadoop/share/hadoop/yarn/*:$PWD/mr-framework/hadoop/share/hadoop/yarn/lib/*:$PWD/mr-framework/hadoop/share/hadoop/hdfs/*:$PWD/mr-framework/hadoop/share/hadoop/hdfs/lib/*:$PWD/mr-framework/hadoop/share/hadoop/tools/lib/*:/usr/hdp/${hdp.version}/hadoop/lib/hadoop-lzo-0.6.0.${hdp.version}.jar:/etc/hadoop/conf/secure`
+`mapreduce.application.framework.path` | The path of a custom job framework, notably used in HortonWorks clusters | `/hdp/apps/${hdp.version}/mapreduce/mapreduce.tar.gz#mr-framework`
+  
+  
+Where to place these files ?
+----------------------------
+By default they have to be placed in the following local folder on the attacker environment `<hadoop_installation>/etc/hadoop`  
+If you followed the [`Setting up an Hadoop attack environment` tutorial](../Setting up an Hadoop attack environment), it then should be placed in `/opt/hadoop-2.7.3/etc/hadoop`
+  
+  
+Where to get the parameter values ?
+-----------------------------------
+The cluster configuration can be retrieved on **any Web UI at the `/conf` URI on all native Hadoop components including**:
+* **HDFS NameNode WebUI**, on port HTTP/50070 or HTTPS/50470  
+* **HDFS DataNode WebUI**, on port HTTP/50075 or HTTPS/50475  
+* **MapReduce v2 JobHistory Server WebUI**, on port HTTP/19888 or HTTPS/19890  
+* **YARN ResourceManager WebUI**, on port HTTP/8088 or HTTPS/8090  
+* **YARN NodeManager WebUI**, on port HTTP/8042 or HTTPS/8044  
+* **Secondary NameNode WebUI**, on port HTTP/50090  
+* **MapReduce v1 JobTracker**, on port HTTP/50030  
+* **MapReduce v1 TaskTracker**, on port HTTP/50060  
 
 
------------
-Hadoop core
------------
+HadoopSnooper
+-------------
+`HadoopSnooper` has been developped to allow attackers to easily retrieve a suitable minimum client-side configuration using configuration files exposed on Hadoop components' Web interfaces.  
+It simply grabs a remote cluster configuration, parse it and generate the appropriate configuration files to be used in the attacker environment.
 
-
-----------
-Map-Reduce
-----------
-
-
-----
-Yarn
-----
-
-`HadoopSnooper`has been developped to allow attackers to easily retrieve a suitable configuration using configuration files exposed through Hadoop HTTP interfaces.
-
-Usage
------
-The application consist of the following commands:
-
+### Usage
 ```
 $ python hadoopsnooper.py -h
 usage: hadoopsnooper.py [-h] --nn NN [--dn DN] [-o OUTPUT_DIR] [--batch] host
@@ -48,3 +87,8 @@ optional arguments:
   -o OUTPUT_DIR, --output-dir OUTPUT_DIR
                         Output directory
   --batch               Never ask for user input, use the default behaviour
+```
+
+### Dependencies
+* Python 2
+* `requests` and `lxml` modules: `$ pip install requests lxml`
