@@ -3,7 +3,7 @@ Unauthenticated configuration download
 
 Description
 -----------
-Cloudera Manager allows to **download module configurations without authentication** by iterating on the module index (starting from 1) through the following GET request:
+Cloudera Manager allows to **download module configurations without authentication** by iterating on the module index (integer starting from 1) through the following GET request:
 ```
 http://<cloudera_manager_IP>:7180/cmf/services/<service_id_to_iterate>/client-config
 ```
